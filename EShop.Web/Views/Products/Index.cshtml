@@ -1,0 +1,50 @@
+﻿@model List<EShop.Domain.Domain.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--najgore kaj model staivme List mesto Enumerable zatoa sto kje rbaotime so lista od produkti-->
+<div class=" container">
+    <div class=" m-3">
+        <a class="btn btn-success" style="background-color:coral; border-color:coral;" asp-controller="Products" asp-action="Create">Add New Product</a>
+    </div>
+
+    <!-- sakame redici so po tri produkti-->
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var item = Model[i]; // go prezemame i-tiot produkt od listata produkti vo Model
+
+        //sakam da dodavam red so tri produkti vo nego pa zatoa
+        if (i % 3 == 0)
+        {
+            @:<div class="row">
+        }
+
+        <div class=" col-md-3 m-4">
+            <div class=" card" style="width: 18rem; height: 30rem;">
+                <img src="@item.ProductImage" class="card-img-top" style="height:50%" alt="Image for product!">
+
+                <div class="card-body">
+                    <h3 class="card-title">@item.ProductName</h3>
+                    <p class="card-text">@item.ProductDescription</p>
+
+                    <p><i>Price: </i><b>@item.ProductPrice $</b></p>
+                </div>
+
+                <div class=" card-footer">
+                    <a asp-controller="Products" asp-action="AddProductToCart" asp-route-id="@item.Id" class="btn btn-info">Add to Cart</a>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a>
+                </div>
+            </div>
+        </div>
+
+        if (i % 3 == 2)
+        {
+            @:</div>
+        }
+    }
+
+</div>
+
